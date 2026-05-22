@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.IO;
-using System.Reflection;
+using System;
 
 namespace HackathonFoolsJourney
 {
@@ -12,20 +11,22 @@ namespace HackathonFoolsJourney
         private SpriteBatch _spriteBatch;
 
         private Assets assets;
+        private Renderer renderer;
+        private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
 
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            Window.Title = "Fool's Journey";
             Window.AllowUserResizing = true;
-            //Window.ClientSizeChanged += OnResize;
+            Window.ClientSizeChanged += OnWindowResized;
 
             base.Initialize();
         }
@@ -35,6 +36,14 @@ namespace HackathonFoolsJourney
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             assets = new(this);
+            renderer = new(this, _spriteBatch, assets);
+        }
+
+        private void OnWindowResized(object sender, EventArgs e)
+        {
+            _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            _graphics.ApplyChanges();
         }
 
         protected override void Update(GameTime gameTime)
@@ -47,22 +56,46 @@ namespace HackathonFoolsJourney
             base.Update(gameTime);
         }
 
+        private void DrawEdgeBars()
+        {
+            Color barColor = new(0.1f, 0, 0.2f);
+            if (renderer.OffsetX > 0)
+            {
+                float barWidth = renderer.OffsetX;
+                renderer.DrawRect(0, 0, barWidth, renderer.Height, barColor);
+                renderer.DrawRect(renderer.Width - barWidth, 0, barWidth, renderer.Height, barColor);
+            }
+            if (renderer.OffsetY > 0)
+            {
+                float barHeight = renderer.OffsetY;
+                renderer.DrawRect(0, 0, renderer.Width, barHeight, barColor);
+                renderer.DrawRect(0, renderer.Height - barHeight, renderer.Width, barHeight, barColor);
+            }
+        }
+
+        float rotation = 0;
+
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(ClearColor);
 
-            // TODO: Add your drawing code here
-
+            // Start Rendering
+            // SamplerState.PointClamp keeps sprites from appearing blurry
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            //_spriteBatch.Draw(testTexture, new Vector2(100, 100), Color.White);
-            //_spriteBatch.Draw(assets.CardEmperor, new Vector2(100, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
-            //_spriteBatch.Draw(assets.CardEmpress, new Vector2(300, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
-            var pos = new Vector2(0, 100);
-            foreach (var texture in assets.Cards)
-            {
-                _spriteBatch.Draw(texture, pos, null, Color.White, 0f, Vector2.Zero, new Vector2(1f), SpriteEffects.None, 0f);
-                pos.X += 100;
-            }
+
+            // Draw bars on screen edge when resizing window
+            DrawEdgeBars();
+
+            // Test rendering sprites that are scaled with window
+            renderer.DrawScaled(assets.CardFool, 0, 0, 2);
+            renderer.DrawScaled(assets.CardEmpress, 800 - assets.CardEmpress.Width * 2f, 0, 2);
+
+            // Animated card test
+            rotation += 0.05f;
+            renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
+            renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
+
+            // Finish rendering
             _spriteBatch.End();
 
             base.Draw(gameTime);
