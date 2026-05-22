@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
+using System.Reflection;
 
 namespace HackathonFoolsJourney
 {
@@ -31,7 +33,7 @@ namespace HackathonFoolsJourney
 
             // TODO: use this.Content to load your game content here
 
-            testTexture = Content.Load<Texture2D>("test");
+            testTexture = Content.Load<Texture2D>("Cards/Fool");
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,8 +52,9 @@ namespace HackathonFoolsJourney
 
             // TODO: Add your drawing code here
 
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(testTexture, new Vector2(100, 100), Color.White);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            //_spriteBatch.Draw(testTexture, new Vector2(100, 100), Color.White);
+            _spriteBatch.Draw(testTexture, new Vector2(100, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(3), SpriteEffects.None, 0f);
             _spriteBatch.End();
 
             base.Draw(gameTime);
