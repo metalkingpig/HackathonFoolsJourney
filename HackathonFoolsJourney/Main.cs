@@ -11,8 +11,7 @@ namespace HackathonFoolsJourney
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Texture2D testTexture;
-        private Texture2D cardWorld;
+        private Assets assets;
 
         public Main()
         {
@@ -35,10 +34,7 @@ namespace HackathonFoolsJourney
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
-            testTexture = Content.Load<Texture2D>("Cards/Strength");
-            cardWorld = Content.Load<Texture2D>("Cards/World");
+            assets = new(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -59,8 +55,14 @@ namespace HackathonFoolsJourney
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             //_spriteBatch.Draw(testTexture, new Vector2(100, 100), Color.White);
-            _spriteBatch.Draw(testTexture, new Vector2(100, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
-            _spriteBatch.Draw(cardWorld, new Vector2(300, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
+            //_spriteBatch.Draw(assets.CardEmperor, new Vector2(100, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
+            //_spriteBatch.Draw(assets.CardEmpress, new Vector2(300, 100), null, Color.White, 0f, Vector2.Zero, new Vector2(2.5f), SpriteEffects.None, 0f);
+            var pos = new Vector2(0, 100);
+            foreach (var texture in assets.Cards)
+            {
+                _spriteBatch.Draw(texture, pos, null, Color.White, 0f, Vector2.Zero, new Vector2(1f), SpriteEffects.None, 0f);
+                pos.X += 100;
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
