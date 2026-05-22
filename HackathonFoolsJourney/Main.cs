@@ -4,12 +4,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HackathonFoolsJourney
 {
-    public class Game1 : Game
+    public class Main : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        private Texture2D testTexture;
+
+        public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -28,6 +30,8 @@ namespace HackathonFoolsJourney
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            testTexture = Content.Load<Texture2D>("test");
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,9 +46,13 @@ namespace HackathonFoolsJourney
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
+
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(testTexture, new Vector2(100, 100), Color.White);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

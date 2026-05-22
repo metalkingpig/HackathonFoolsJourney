@@ -1,2 +1,2 @@
-﻿using var game = new HackathonFoolsJourney.Game1();
+﻿using var game = new HackathonFoolsJourney.Main();
 game.Run();
