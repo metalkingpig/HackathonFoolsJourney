@@ -6,6 +6,7 @@ namespace HackathonFoolsJourney
     public class Assets
     {
         public readonly Texture2D WhitePixel;
+        public readonly Texture2D Gradient;
 
         public readonly SpriteFont Font;
 
@@ -95,6 +96,7 @@ namespace HackathonFoolsJourney
         public Assets(Game game)
         {
             WhitePixel = game.Content.Load<Texture2D>("WhitePixel");
+            Gradient = game.Content.Load<Texture2D>("Gradient");
 
             Font = game.Content.Load<SpriteFont>("Fonts/Tiny5");
 

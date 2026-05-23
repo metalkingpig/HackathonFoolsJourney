@@ -791,6 +791,18 @@
 #begin Fonts/Tiny5.ttf
 /copy:Fonts/Tiny5.ttf
 
+#begin Gradient.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Gradient.png
+
 #begin WhitePixel.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -7,9 +7,10 @@ namespace HackathonFoolsJourney
     public class Textbox
     {
         private readonly SpriteFont font;
-        private readonly string text;
         private readonly float textScale;
-        private readonly int ticksToIncrement;
+
+        private string text;
+        private int ticksToIncrement;
 
         private readonly float x;
         private readonly float y;
@@ -81,6 +82,15 @@ namespace HackathonFoolsJourney
             }
 
             return sb.ToString();
+        }
+
+        public void SetText(string text, int speed = -1)
+        {
+            this.text = text;
+            if (speed != -1)
+                ticksToIncrement = speed;
+            characterIndex = 0;
+            nextIncrement = ticksToIncrement;
         }
     }
 }
