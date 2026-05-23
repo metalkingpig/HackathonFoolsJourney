@@ -120,6 +120,5 @@ namespace HackathonFoolsJourney
             field.addCardBag(card);
             card.cardDelete();
         }
-
     }
 }

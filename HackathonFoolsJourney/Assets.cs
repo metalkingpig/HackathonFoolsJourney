@@ -31,7 +31,7 @@ namespace HackathonFoolsJourney
         public readonly Texture2D CardJackK;
 
         // Cup
-        public readonly Texture2D CardCup1;
+        public readonly Texture2D CardCup1  ;
         public readonly Texture2D CardCup2;
         public readonly Texture2D CardCup3;
         public readonly Texture2D CardCup4;
