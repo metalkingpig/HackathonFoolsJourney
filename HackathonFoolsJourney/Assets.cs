@@ -36,6 +36,7 @@ namespace HackathonFoolsJourney
         public readonly Texture2D CardTower;
 
         public readonly Texture2D[] Cards;
+        public readonly Texture2D CardBack; //was throwing error in main
 
         public readonly int CardWidth;
         public readonly int CardHeight;
@@ -51,6 +52,7 @@ namespace HackathonFoolsJourney
 
             // Cards
             CardBackside = game.Content.Load<Texture2D>("Cards/Back");
+            CardBack = CardBackside;
             CardJudgement = game.Content.Load<Texture2D>("Cards/Judgement");
             CardWorld = game.Content.Load<Texture2D>("Cards/World");
             CardChariot = game.Content.Load<Texture2D>("Cards/Chariot");
