@@ -5,14 +5,22 @@ namespace HackathonFoolsJourney
 {
     public class JourneyState
     {
+        // PLAYER STATE
         public FoolState Fool { get; private set; } = new();
 
+        // THE FOOL CARD (NOT SHUFFLED INTO DECK)
+        public TarotCard FoolCard { get; private set; } =
+            new TarotCard("The Fool", TarotSuit.Trump, TarotCardType.Fool, 0);
+
+        // MAIN GAME ZONES
         public List<TarotCard> Deck { get; private set; } = new();
         public List<TarotCard> AdventureField { get; private set; } = new();
         public List<TarotCard> DiscardPile { get; private set; } = new();
 
+        // RANDOM FOR SHUFFLING
         private Random random = new();
 
+        // START GAME
         public void StartGame()
         {
             Deck.Clear();
@@ -24,8 +32,10 @@ namespace HackathonFoolsJourney
             DealStartingAdventure();
         }
 
+        // BUILD FULL TAROT DECK
         private void BuildDeck()
         {
+            // MAJOR ARCANA / CHALLENGES
             Deck.Add(new TarotCard("The Magician", TarotSuit.Trump, TarotCardType.Challenge, 1));
             Deck.Add(new TarotCard("The High Priestess", TarotSuit.Trump, TarotCardType.Challenge, 2));
             Deck.Add(new TarotCard("The Empress", TarotSuit.Trump, TarotCardType.Challenge, 3));
@@ -48,47 +58,66 @@ namespace HackathonFoolsJourney
             Deck.Add(new TarotCard("Judgement", TarotSuit.Trump, TarotCardType.Challenge, 20));
             Deck.Add(new TarotCard("The World", TarotSuit.Trump, TarotCardType.Challenge, 21));
 
+            // MINOR ARCANA
             AddSuit(TarotSuit.Cups);
             AddSuit(TarotSuit.Batons);
             AddSuit(TarotSuit.Swords);
             AddSuit(TarotSuit.Coins);
         }
 
+        // ADD SUIT TO DECK
         private void AddSuit(TarotSuit suit)
         {
+            // ACE
             Deck.Add(new TarotCard($"Ace of {suit}", suit, TarotCardType.Ace, 1));
 
+            // NUMBERED CARDS
             for (int i = 2; i <= 10; i++)
-                Deck.Add(new TarotCard($"{i} of {suit}", suit, TarotCardType.Numbered, i));
+            {
+                Deck.Add(new TarotCard(
+                    $"{i} of {suit}",
+                    suit,
+                    TarotCardType.Numbered,
+                    i
+                ));
+            }
 
+            // ROYALS / HELPERS
             Deck.Add(new TarotCard($"Page of {suit}", suit, TarotCardType.Royal, 1));
             Deck.Add(new TarotCard($"Knight of {suit}", suit, TarotCardType.Royal, 1));
             Deck.Add(new TarotCard($"Queen of {suit}", suit, TarotCardType.Royal, 1));
             Deck.Add(new TarotCard($"King of {suit}", suit, TarotCardType.Royal, 1));
         }
 
+        // SHUFFLE DECK
         private void ShuffleDeck()
         {
             for (int i = Deck.Count - 1; i > 0; i--)
             {
                 int j = random.Next(i + 1);
+
                 TarotCard temp = Deck[i];
                 Deck[i] = Deck[j];
                 Deck[j] = temp;
             }
         }
 
+        // FIRST DEAL
         public void DealStartingAdventure()
         {
             DealCards(4);
         }
 
+        // NEXT ROUND
         public void DealNextAdventure()
         {
             if (AdventureField.Count == 1)
+            {
                 DealCards(3);
+            }
         }
 
+        // DEAL CARDS
         private void DealCards(int amount)
         {
             for (int i = 0; i < amount && Deck.Count > 0; i++)
@@ -96,6 +125,68 @@ namespace HackathonFoolsJourney
                 AdventureField.Add(Deck[0]);
                 Deck.RemoveAt(0);
             }
+        }
+
+        // STORE CARD IN SATCHEL
+        public bool StoreCardInSatchel(int adventureFieldIndex)
+        {
+            if (adventureFieldIndex < 0 || adventureFieldIndex >= AdventureField.Count)
+                return false;
+
+            if (Fool.Satchel.Count >= 3)
+                return false;
+
+            TarotCard card = AdventureField[adventureFieldIndex];
+
+            if (!card.CanGoInSatchel())
+                return false;
+
+            Fool.Satchel.Add(card);
+
+            AdventureField.RemoveAt(adventureFieldIndex);
+
+            return true;
+        }
+
+        // DISCARD NON-CHALLENGE CARD
+        public bool DiscardAdventureCard(int adventureFieldIndex)
+        {
+            if (adventureFieldIndex < 0 || adventureFieldIndex >= AdventureField.Count)
+                return false;
+
+            TarotCard card = AdventureField[adventureFieldIndex];
+
+            if (card.IsChallenge())
+                return false;
+
+            DiscardPile.Add(card);
+
+            AdventureField.RemoveAt(adventureFieldIndex);
+
+            return true;
+        }
+
+        // USE CUP CARD TO HEAL
+        public bool UseCupForVitality(int adventureFieldIndex)
+        {
+            if (adventureFieldIndex < 0 || adventureFieldIndex >= AdventureField.Count)
+                return false;
+
+            TarotCard card = AdventureField[adventureFieldIndex];
+
+            if (card.Suit != TarotSuit.Cups)
+                return false;
+
+            if (card.Type != TarotCardType.Numbered)
+                return false;
+
+            Fool.GainVitality(card.Value);
+
+            DiscardPile.Add(card);
+
+            AdventureField.RemoveAt(adventureFieldIndex);
+
+            return true;
         }
     }
 }
