@@ -85,6 +85,9 @@ namespace HackathonFoolsJourney
         public readonly Texture2D CardTower;
 
         public readonly Texture2D[] Cards;
+        public readonly Texture2D[] Jacks;
+        public readonly Texture2D[] Cups;
+        public readonly Texture2D[] Swords;
 
         public readonly int CardWidth;
         public readonly int CardHeight;
@@ -193,6 +196,54 @@ namespace HackathonFoolsJourney
                 CardSun,            // 18
                 CardJudgement,      // 19
                 CardWorld,          // 20
+            ];
+
+            Jacks = [
+                CardJack1,         // 0
+                CardJack2,         // 1
+                CardJack3,         // 2
+                CardJack4,         // 3
+                CardJack5,         // 4
+                CardJack6,         // 5
+                CardJack7,         // 6
+                CardJack8,         // 7
+                CardJack9,         // 8
+                CardJack10,        // 9
+                CardJackJ,         // 10
+                CardJackK,         // 11
+                CardJackQ,         // 12
+            ];
+
+            Cups = [
+                CardCup1,           // 0
+                CardCup2,           // 1
+                CardCup3,           // 2
+                CardCup4,           // 3
+                CardCup5,           // 4
+                CardCup6,           // 5
+                CardCup7,           // 6
+                CardCup8,           // 7
+                CardCup9,           // 8
+                CardCup10,          // 9
+                CardCupJ,           // 10
+                CardCupK,           // 11
+                CardCupQ,           // 12
+            ];
+
+            Swords = [
+                CardSword1,         // 0
+                CardSword2,         // 1
+                CardSword3,         // 2
+                CardSword4,         // 3
+                CardSword5,         // 4
+                CardSword6,         // 5
+                CardSword7,         // 6
+                CardSword8,         // 7
+                CardSword9,         // 8
+                CardSword10,        // 9
+                CardSwordJ,         // 10
+                CardSwordK,         // 11
+                CardSwordQ,         // 12
             ];
         }
     }
