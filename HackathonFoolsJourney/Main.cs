@@ -83,6 +83,9 @@ namespace HackathonFoolsJourney
             // SamplerState.PointClamp keeps sprites from appearing blurry
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+            // Draw BG
+            renderer.DrawCentered(assets.BGCastle, Renderer.VirtualWidth / 2, Renderer.VirtualHeight / 2, new Vector2(8), Color.Violet);
+
             // Draw bars on screen edge when resizing window
             DrawEdgeBars();
 
@@ -94,6 +97,9 @@ namespace HackathonFoolsJourney
             rotation += 0.05f;
             renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
             renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
+
+            //Text example
+            //renderer.DrawTextScaled(assets.Font, "Score: 100", 0, 0, 4);
 
             // Finish rendering
             _spriteBatch.End();

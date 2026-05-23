@@ -55,6 +55,16 @@ namespace HackathonFoolsJourney
             spritebatch.Draw(texture, new Vector2(x, y) * Scale + Offset, null, Color.White, 0f, origin, scale * Scale, SpriteEffects.None, 0f);
         }
 
+        public void DrawScaled(Texture2D texture, float x, float y, Vector2 scale, Vector2 origin, Color color, SpriteEffects spriteEffects = SpriteEffects.None)
+        {
+            spritebatch.Draw(texture, new Vector2(x, y) * Scale + Offset, null, color, 0f, origin, scale * Scale, spriteEffects, 0f);
+        }
+
+        public void DrawCentered(Texture2D texture, float x, float y, Vector2 scale, Color color)
+        {
+            DrawScaled(texture, x, y, scale, new Vector2(texture.Width / 2, texture.Height / 2), color);
+        }
+
         public void DrawAnimatedCard(Texture2D frontsideTexture, float x, float y, float rotation, Vector2 scale)
         {
             float realrot = MathF.Sin(rotation);
@@ -68,6 +78,11 @@ namespace HackathonFoolsJourney
         public void DrawAnimatedCard(Texture2D frontsideTexture, float x, float y, float rotation, float scale)
         {
             DrawAnimatedCard(frontsideTexture, x, y, rotation, new Vector2(scale));
+        }
+
+        public void DrawTextScaled(SpriteFont font, string text, float x, float y, float scale)
+        {
+            spritebatch.DrawString(font, text, new Vector2(x, y) * Scale + Offset, Color.White, 0, default, scale * Scale, SpriteEffects.None, 0);
         }
     }
 }

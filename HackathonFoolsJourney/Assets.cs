@@ -7,6 +7,10 @@ namespace HackathonFoolsJourney
     {
         public readonly Texture2D WhitePixel;
 
+        public readonly SpriteFont Font;
+
+        public readonly Texture2D BGCastle;
+
         public readonly Texture2D CardBackside;
         public readonly Texture2D CardJudgement;
         public readonly Texture2D CardWorld;
@@ -39,6 +43,11 @@ namespace HackathonFoolsJourney
         public Assets(Game game)
         {
             WhitePixel = game.Content.Load<Texture2D>("WhitePixel");
+
+            Font = game.Content.Load<SpriteFont>("Fonts/Tiny5");
+
+            //Backgrounds
+            BGCastle = game.Content.Load<Texture2D>("Backgrounds/Castle");
 
             // Cards
             CardBackside = game.Content.Load<Texture2D>("Cards/Back");
