@@ -45,6 +45,11 @@ namespace HackathonFoolsJourney
             spritebatch.Draw(assets.WhitePixel, new Vector2(x, y), null, color, 0f, Vector2.Zero, new Vector2(width, height), SpriteEffects.None, 0f);
         }
 
+        public void DrawRectScaled(float x, float y, float width, float height, Color color)
+        {
+            spritebatch.Draw(assets.WhitePixel, new Vector2(x, y) * Scale + Offset, null, color, 0f, Vector2.Zero, new Vector2(width, height) * Scale, SpriteEffects.None, 0f);
+        }
+
         public void DrawScaled(Texture2D texture, float x, float y, float scale)
         {
             spritebatch.Draw(texture, new Vector2(x, y) * Scale + Offset, null, Color.White, 0f, Vector2.Zero, new Vector2(scale * Scale), SpriteEffects.None, 0f);

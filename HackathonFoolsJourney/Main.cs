@@ -13,6 +13,7 @@ namespace HackathonFoolsJourney
         private Assets assets;
         private Renderer renderer;
         private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
+        private Textbox textbox = null;
 
         // MAIN GAME STATE
         private JourneyState journey;
@@ -50,6 +51,12 @@ namespace HackathonFoolsJourney
 
             assets = new(this);
             renderer = new(this, _spriteBatch, assets);
+
+            int textboxWidth = 500;
+            int textboxHeight = 200;
+            var textboxArea = new Rectangle((Renderer.VirtualWidth - textboxWidth) / 2, Renderer.VirtualHeight - textboxHeight, textboxWidth, textboxHeight);
+            textbox = new(assets.Font, "Hello World! I am a textbox that contains text wrapping which is pretty cool...", textboxArea);
+            //textbox = new(assets.Font, "Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello");
         }
 
         private void OnWindowResized(object sender, EventArgs e)
@@ -70,29 +77,47 @@ namespace HackathonFoolsJourney
                 Exit();
             }
 
-            // TEST:
-            // PRESS SPACE TO DEAL NEXT ADVENTURE
+            // TEST: PRESS SPACE TO DEAL NEXT ADVENTURE
             if (keyboard.IsKeyDown(Keys.Space))
             {
                 journey.DealNextAdventure();
             }
 
-            // TEST:
-            // PRESS H TO TAKE DAMAGE
+            // TEST: PRESS H TO TAKE DAMAGE
             if (keyboard.IsKeyDown(Keys.H))
             {
                 journey.Fool.LoseVitality(1);
             }
 
-            // TEST:
-            // PRESS J TO HEAL
+            // TEST: PRESS J TO HEAL
             if (keyboard.IsKeyDown(Keys.J))
             {
                 journey.Fool.GainVitality(1);
             }
 
+            // ====================== PDF GAMEPLAY CONTROLS ======================
+            // 1-4 = Store card in Satchel
+            if (keyboard.IsKeyDown(Keys.D1)) journey.StoreCardInSatchel(0);
+            if (keyboard.IsKeyDown(Keys.D2)) journey.StoreCardInSatchel(1);
+            if (keyboard.IsKeyDown(Keys.D3)) journey.StoreCardInSatchel(2);
+            if (keyboard.IsKeyDown(Keys.D4)) journey.StoreCardInSatchel(3);
+
+            // E = Equip Wisdom (Coins)
+            if (keyboard.IsKeyDown(Keys.E)) journey.EquipWisdom(0);
+            // Q = Equip Strength (Batons)
+            if (keyboard.IsKeyDown(Keys.Q)) journey.EquipStrength(0);
+            // W = Equip Volition (Swords)
+            if (keyboard.IsKeyDown(Keys.W)) journey.EquipVolition(0);
+
+            // R = Resolve first Challenge
+            if (keyboard.IsKeyDown(Keys.R)) journey.ResolveChallenge(0);
+
+            // A = Take Chance with Ace
+            if (keyboard.IsKeyDown(Keys.A)) journey.TakeChance(0);
+
             base.Update(gameTime);
         }
+
 
         private void DrawEdgeBars()
         {
@@ -115,53 +140,41 @@ namespace HackathonFoolsJourney
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(ClearColor);
 
+            // Start Rendering
+            // SamplerState.PointClamp keeps sprites from appearing blurry
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            // DRAW CARDS
-            var pos = new Vector2(50, 100);
+            // Draw BG
+            renderer.DrawCentered(assets.BGCastle, Renderer.VirtualWidth / 2, Renderer.VirtualHeight / 2, new Vector2(8), Color.Violet);
 
-            foreach (var texture in assets.Cards)
+            // Draw bars on screen edge when resizing window
+            DrawEdgeBars();
+
+            renderer.DrawScaled(assets.CardDevil, 400, 400, 2);
+
+
+            // Test rendering sprites that are scaled with window
+            renderer.DrawScaled(assets.CardFool, 0, 0, 2);
+            renderer.DrawScaled(assets.CardEmpress, 800 - assets.CardEmpress.Width * 2f, 0, 2);
+
+            // Animated card test
+            rotation += 0.05f;
+            renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
+            renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
+
+            //Text example
+            renderer.DrawTextScaled(assets.Font, "Scale: " + renderer.Scale, 0, 700, 2);
+            //renderer.DrawTextScaled(assets.Font, "Score: 100", 0, 0, 4);
+
+            // UI
+            if (textbox != null)
             {
-                _spriteBatch.Draw(
-                    texture,
-                    pos,
-                    null,
-                    Color.White,
-                    0f,
-                    Vector2.Zero,
-                    new Vector2(1f),
-                    SpriteEffects.None,
-                    0f
-                );
-
-                pos.X += 100;
+                textbox.Draw(renderer);
             }
 
-            // DEBUG VISUAL:
-            // DRAW SIMPLE RECTANGLES FOR ADVENTURE FIELD
-
-            var fieldPos = new Vector2(50, 400);
-
-            foreach (var card in journey.AdventureField)
-            {
-                Texture2D pixel = new Texture2D(GraphicsDevice, 1, 1);
-                pixel.SetData(new[] { Color.White });
-
-                _spriteBatch.Draw(
-                    pixel,
-                    new Rectangle(
-                        (int)fieldPos.X,
-                        (int)fieldPos.Y,
-                        80,
-                        120),
-                    Color.DarkRed
-                );
-
-                fieldPos.X += 100;
-            }
-
+            // Finish rendering
             _spriteBatch.End();
 
             base.Draw(gameTime);

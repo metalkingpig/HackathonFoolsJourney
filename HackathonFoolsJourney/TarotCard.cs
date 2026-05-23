@@ -2,28 +2,20 @@ namespace HackathonFoolsJourney
 {
     public enum TarotSuit
     {
-        Cups,
-        Batons,
-        Swords,
-        Coins,
-        Trump
+        Cups, Batons, Swords, Coins, Trump
     }
 
     public enum TarotCardType
     {
-        Numbered,
-        Ace,
-        Royal,
-        Challenge,
-        Fool
+        Numbered, Ace, Royal, Challenge, Fool
     }
 
     public class TarotCard
     {
-        public string Name { get; set; }
-        public TarotSuit Suit { get; set; }
-        public TarotCardType Type { get; set; }
-        public int Value { get; set; }
+        public string Name { get; }
+        public TarotSuit Suit { get; }
+        public TarotCardType Type { get; }
+        public int Value { get; set; }   // mutable for depletion
 
         public TarotCard(string name, TarotSuit suit, TarotCardType type, int value)
         {
@@ -33,14 +25,15 @@ namespace HackathonFoolsJourney
             Value = value;
         }
 
-        public bool IsChallenge()
-        {
-            return Type == TarotCardType.Challenge;
-        }
+        public bool IsChallenge() => Type == TarotCardType.Challenge;
 
-        public bool CanGoInSatchel()
+        public bool CanGoInSatchel() => Type != TarotCardType.Challenge && Type != TarotCardType.Fool;
+
+        public bool IsHelperFor(TarotCard target)
         {
-            return Type != TarotCardType.Challenge && Type != TarotCardType.Fool;
+            return Type == TarotCardType.Royal &&
+                   Suit == target.Suit &&
+                   target.Type != TarotCardType.Challenge;
         }
     }
 }
