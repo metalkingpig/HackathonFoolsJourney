@@ -18,6 +18,8 @@ public class Deck
     string[] majorArcana = {"The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit", "The Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World"};
 
     Stack<Card> drawPile = new Stack<Card>(77);   //Cards in draw pile
+    HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
+    
 
     
 
@@ -82,8 +84,7 @@ public class Deck
     public void fillDrawPile()
     {
         Card temp_card;
-        HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
-
+        
         while (drawPile.Count < 78) //Add 77 cards 
         {
             temp_card = createCard();
@@ -99,5 +100,42 @@ public class Deck
             }
             
         }
+    }
+
+    public Card drawCard()
+    {
+        Card drawnCard = new Card();
+        drawnCard = drawPile.Pop(); //Draw Card
+        return drawnCard;
+    }
+
+    public void Shuffle()
+    {
+        Card temp_card;
+        HashSet<string> reAdded = new HashSet<string>();  //Store cards readded
+        drawPile.Clear();   //Empty Stack
+
+        //Create cards until all in their
+        while (drawPile.Count != inDrawPile.Count)
+        {
+            temp_card = createCard();
+
+            if (reAdded.Contains(temp_card.name) || (!inDrawPile.Contains(temp_card.name)))
+            {
+                continue;
+            }
+            else
+            {
+                reAdded.Add(temp_card.name);
+                drawPile.Push(temp_card);
+            }
+        }
+
+        
+    }
+
+    public void reAddCard(Card toAdd)
+    {
+        inDrawPile.Add(toAdd.name);
     }
 };
