@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 
-struct Card
+public struct Card
 {
     public string name;
     public string suit;
@@ -16,15 +16,13 @@ public class Deck
     string[] suits = {"Arcana", "Coins", "Swords", "Wands", "Cups"};
     string[] namedCards = {"Ace", "Page", "Knights", "Queen", "King"};
     string[] majorArcana = {"The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit", "The Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World"};
- 
-    HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
 
-    Stack<Card> drawPile = new Stack<Card>();   //Cards in draw pile
+    Stack<Card> drawPile = new Stack<Card>(77);   //Cards in draw pile
 
     
 
     //Fill drawPile
-    public void fillDrawPile()
+    public Card createCard()
     {
         Card temp_card = new Card();
         Random rnd = new Random();  //Random number generator
@@ -74,11 +72,32 @@ public class Deck
                     break;
             }
 
-            temp_card.name = temp_card.name + temp_card.suit;
+            temp_card.name = temp_card.name + " of " + temp_card.suit;
+            temp_card.value = choice;
         }
 
-        Console.WriteLine(temp_card.name);
-        Console.WriteLine(temp_card.value);
-        Console.WriteLine(temp_card.suit);
+        return temp_card;
+    }
+
+    public void fillDrawPile()
+    {
+        Card temp_card;
+        HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
+
+        while (drawPile.Count < 78) //Add 77 cards 
+        {
+            temp_card = createCard();
+
+            if (inDrawPile.Contains(temp_card.name))
+            {
+                continue;
+            }
+            else
+            {
+                inDrawPile.Add(temp_card.name);
+                drawPile.Push(temp_card);
+            }
+            
+        }
     }
 };
