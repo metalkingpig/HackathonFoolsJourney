@@ -16,7 +16,14 @@ public class PlayingField
 
         for (int i = 0; i < 4; i++)
         {
-            if (field[i].name == "   ")
+            if (field[i] == null)
+            {
+                Card tempCard = new Card();
+                tempCard.cardDelete();
+
+                field[i] = tempCard;  
+            }
+            else if (field[i].name == "   ")
             {
                 count++;
             }

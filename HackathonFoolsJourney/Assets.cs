@@ -192,7 +192,7 @@ namespace HackathonFoolsJourney
                 CardDevil,          // 14
                 CardTower,          // 15
                 CardStar,           // 16
-                CardMoon,           // 17
+                CardMoon,            // 17
                 CardSun,            // 18
                 CardJudgement,      // 19
                 CardWorld,          // 20

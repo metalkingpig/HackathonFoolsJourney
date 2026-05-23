@@ -43,10 +43,19 @@ public class Deck
     HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
     
     List<Card> cardList = new List<Card>();
+    List<Card> holyList = new List<Card> ();
 
     public Deck(Assets ass)
     {
         this.ass = ass;
+        fillCardList();
+
+        //Copy cardList to holyList
+        foreach(Card item in cardList)
+        {
+            holyList.Add(item);
+        }
+
         fillDrawPile();
     }
 
@@ -116,28 +125,22 @@ public class Deck
         return temp_card;
     }
 
-/*
+
     public void fillDrawPile()
     {
-        Card temp_card;
-        
-        while (drawPile.Count < 77) //Add 77 cards 
+        int index = 0;
+        while (holyList.Count != 0) //Repeat until card list empty
         {
-            temp_card = createCard();
-
-            if (inDrawPile.Contains(temp_card.name))
-            {
-                continue;
-            }
-            else
-            {
-                inDrawPile.Add(temp_card.name);
-                drawPile.Push(temp_card);
-            }
-            
+            holyList.Remove(cardList[index]);
+            index++;
         }
+        //Choose random number
+        //Use rng as index of card list
+        //Add card to draw pile
+        //remove index from card list
+        
     }
-    */
+    
     public Card drawCard()
     {
         Card drawnCard = new Card();
@@ -184,7 +187,7 @@ public class Deck
     }
 
     
-    public void fillDrawPile()
+    public void fillCardList()
     {
         Card tempCard = new Card();
 
@@ -296,109 +299,109 @@ public class Deck
         tempCard.name = "Ace of Jacks";
         tempCard.value = 1;
         tempCard.suit = "Jack";
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[0];
         cardList.Add(tempCard);
 
         tempCard.name = "2 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[1];
         cardList.Add(tempCard);
 
         tempCard.name = "3 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[2];
         cardList.Add(tempCard);
 
         tempCard.name = "3 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[3];
         cardList.Add(tempCard);
 
         tempCard.name = "4 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[4];
         cardList.Add(tempCard);
 
         tempCard.name = "5 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[4];
         cardList.Add(tempCard);
 
         tempCard.name = "6 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[5];
         cardList.Add(tempCard);
 
         tempCard.name = "7 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[6];
         cardList.Add(tempCard);
 
         tempCard.name = "8 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[7];
         cardList.Add(tempCard);
 
         tempCard.name = "9 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[8];
         cardList.Add(tempCard);
 
         tempCard.name = "10 of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[9];
         cardList.Add(tempCard);
 
         tempCard.name = "Jack of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[10];
         cardList.Add(tempCard);
 
         tempCard.name = "Queen of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[12];
         cardList.Add(tempCard);
 
         tempCard.name = "King of Jacks";
         tempCard.value++;
-        tempCard.tex = ass.Jacks[tempCard.value];
+        tempCard.tex = ass.Jacks[11];
         cardList.Add(tempCard);
 
         //Cups
         tempCard.name = "Ace of Cups";
         tempCard.suit = "Cups";
         tempCard.value = 1;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[0];
         cardList.Add(tempCard);
 
         tempCard.name = "2 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[1];
         cardList.Add(tempCard);
 
         tempCard.name = "3 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[3];
         cardList.Add(tempCard);
 
         tempCard.name = "4 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[4];
         cardList.Add(tempCard);
 
         tempCard.name = "5 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[5];
         cardList.Add(tempCard);
 
         tempCard.name = "6 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[6];
         cardList.Add(tempCard);
 
         tempCard.name = "7 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[7];
         cardList.Add(tempCard);
 
         tempCard.name = "8 of Cups";
@@ -408,94 +411,94 @@ public class Deck
 
         tempCard.name = "9 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[8];
         cardList.Add(tempCard);
 
         tempCard.name = "10 of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[9];
         cardList.Add(tempCard);
 
         tempCard.name = "Jack of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[10];
         cardList.Add(tempCard);
 
         tempCard.name = "Queen of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[12];
         cardList.Add(tempCard);
 
         tempCard.name = "Kinf of Cups";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[11];
         cardList.Add(tempCard);
 
         //Swords
         tempCard.name = "Ace of Swords";
         tempCard.suit = "Swords";
         tempCard.value = 1;
-        tempCard.tex = ass.Swords[tempCard.value];
+        tempCard.tex = ass.Swords[0];
         cardList.Add(tempCard);
 
         tempCard.name = "2 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Swords[tempCard.value];
+        tempCard.tex = ass.Swords[1];
         cardList.Add(tempCard);
 
         tempCard.name = "3 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[2];
         cardList.Add(tempCard);
 
         tempCard.name = "4 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[3];
         cardList.Add(tempCard);
 
         tempCard.name = "5 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[4];
         cardList.Add(tempCard);
 
         tempCard.name = "6 o fSwords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[5];
         cardList.Add(tempCard);
 
         tempCard.name = "7 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[6];
         cardList.Add(tempCard);
 
         tempCard.name = "8 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[7];
         cardList.Add(tempCard);
 
         tempCard.name = "9 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[8];
         cardList.Add(tempCard);
 
         tempCard.name = "10 of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[9];
         cardList.Add(tempCard);
 
         tempCard.name = "Jack of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[10];
         cardList.Add(tempCard);
 
         tempCard.name = "Queen of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[12];
         cardList.Add(tempCard);
 
         tempCard.name = "King of Swords";
         tempCard.value++;
-        tempCard.tex = ass.Cups[tempCard.value];
+        tempCard.tex = ass.Cups[11];
         cardList.Add(tempCard);
     }
 
