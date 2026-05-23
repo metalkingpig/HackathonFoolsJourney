@@ -19,6 +19,7 @@ namespace HackathonFoolsJourney
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
             
         }
 
@@ -48,10 +49,19 @@ namespace HackathonFoolsJourney
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                Console.WriteLine();
+                
+            }
             // TODO: Add your update logic here
+            // Get the current state of mouse input.
+
 
             base.Update(gameTime);
         }
@@ -87,13 +97,14 @@ namespace HackathonFoolsJourney
             DrawEdgeBars();
 
             // Test rendering sprites that are scaled with window
-            renderer.DrawScaled(assets.CardFool, 0, 0, 2);
-            renderer.DrawScaled(assets.CardEmpress, 800 - assets.CardEmpress.Width * 2f, 0, 2);
+
+            //renderer.DrawScaled(assets.CardFool, 0, 0, 2);
+            //renderer.DrawScaled(assets.CardEmpress, 800 - assets.CardEmpress.Width * 2f, 0, 2);
 
             // Animated card test
-            rotation += 0.05f;
-            renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
-            renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
+            //rotation += 0.05f;
+            //renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
+            //renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
 
             // Finish rendering
             _spriteBatch.End();

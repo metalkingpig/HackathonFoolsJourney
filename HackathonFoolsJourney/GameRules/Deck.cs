@@ -1,27 +1,76 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http.Headers;
+using HackathonFoolsJourney;
+using Microsoft.Xna.Framework.Graphics;
 
-public struct Card
+public class Card
 {
     public string name;
     public string suit;
     public int value;
+
+    public float posX;
+    public float posY;
+
+    public Texture2D tex;
+
+    public void onCardSelect(char input)
+    {
+        if (suit == "Arcana")
+        {
+            Console.WriteLine("Q) Use Strength");
+            Console.WriteLine("W) Use Wisdom");
+            Console.WriteLine("E) Use Health");
+            Console.WriteLine("R) Quit");
+
+            switch (input)
+            {
+                case 'Q':
+                    //Use Strength
+                    break;
+
+            }
+        }
+        else
+        {
+            Console.WriteLine("Q) Use");
+            Console.WriteLine("W) Put in Storage");
+            Console.WriteLine("E) Discard");
+            Console.WriteLine("R) Quit");
+        }
+    }
+
+    public void cardDelete()
+    {
+        name = "   ";
+        suit = "   ";
+        value = 0;
+    }
+
+    public void Draw(Renderer rend)
+    {
+        rend.DrawScaled(tex, posX, posY, 2);
+    }
 }
 
 
-public class Deck
+public class Deck(Assets ass)
 {   
     //Card Info
-    string[] suits = {"Arcana", "Coins", "Swords", "Wands", "Cups"};
-    string[] namedCards = {"Ace", "Page", "Knights", "Queen", "King"};
+    string[] suits = {"Arcana", "Swords", "Wands", "Cups"};
+    string[] namedCards = {"Ace", "Jack", "Queen", "King"};
     string[] majorArcana = {"The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit", "The Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World"};
 
     Stack<Card> drawPile = new Stack<Card>(77);   //Cards in draw pile
     HashSet<string> inDrawPile = new HashSet<string>();  //Store cards already in stack
     
 
-    
+    public Deck(Assets ass)
+    {
+        fillDrawPile();
+    }
 
     //Fill drawPile
     public Card createCard()
@@ -29,7 +78,7 @@ public class Deck
         Card temp_card = new Card();
         Random rnd = new Random();  //Random number generator
 
-        int choice = rnd.Next(4);
+        int choice = rnd.Next(3);
         temp_card.suit = suits[choice];
 
         
@@ -41,6 +90,7 @@ public class Deck
             //Fill Card info
             temp_card.name = majorArcana[choice];
             temp_card.value = choice + 1;
+            temp_card.tex = ass.Cards[choice + 1];
         }
 
         else    //Regular Card
