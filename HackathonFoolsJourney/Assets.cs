@@ -7,6 +7,11 @@ namespace HackathonFoolsJourney
     {
         public readonly Texture2D WhitePixel;
 
+        public readonly SpriteFont Font;
+
+        public readonly Texture2D BGCastle;
+
+        public readonly Texture2D CardBackside;
         public readonly Texture2D CardJudgement;
         public readonly Texture2D CardWorld;
         public readonly Texture2D CardChariot;
@@ -32,11 +37,20 @@ namespace HackathonFoolsJourney
 
         public readonly Texture2D[] Cards;
 
+        public readonly int CardWidth;
+        public readonly int CardHeight;
+
         public Assets(Game game)
         {
             WhitePixel = game.Content.Load<Texture2D>("WhitePixel");
 
+            Font = game.Content.Load<SpriteFont>("Fonts/Tiny5");
+
+            //Backgrounds
+            BGCastle = game.Content.Load<Texture2D>("Backgrounds/Castle");
+
             // Cards
+            CardBackside = game.Content.Load<Texture2D>("Cards/Back");
             CardJudgement = game.Content.Load<Texture2D>("Cards/Judgement");
             CardWorld = game.Content.Load<Texture2D>("Cards/World");
             CardChariot = game.Content.Load<Texture2D>("Cards/Chariot");
@@ -59,6 +73,9 @@ namespace HackathonFoolsJourney
             CardSun = game.Content.Load<Texture2D>("Cards/Sun");
             CardTemperance = game.Content.Load<Texture2D>("Cards/Temperance");
             CardTower = game.Content.Load<Texture2D>("Cards/Tower");
+
+            CardWidth = CardBackside.Width;
+            CardHeight = CardBackside.Height;
 
             Cards = [
                 CardFool,           // 0
