@@ -51,7 +51,7 @@ namespace HackathonFoolsJourney
             //textbox = new(assets.Font, "Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello");
             //textbox = new(assets.Font, "Placehold\nPlacehold\nPlacehold\nPlacehold\nPlaceholder", textboxArea);
 
-            //titleScreen = new TitleScreen(assets);
+            titleScreen = new TitleScreen(assets);
             gamestate = new GameState(this, assets, renderer);
         }
 
