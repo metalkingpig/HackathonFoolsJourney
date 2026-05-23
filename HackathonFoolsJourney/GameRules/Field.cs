@@ -5,6 +5,11 @@ public class PlayingField
 {
     public Card[] field = new Card[7]; //Field
 
+    public PlayingField(Deck deck)
+    {
+        refillField(deck);    
+    }
+
     public int countEmptyField()
     {
         int count = 0;

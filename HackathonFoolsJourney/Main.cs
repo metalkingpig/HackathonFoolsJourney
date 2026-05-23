@@ -21,6 +21,7 @@ namespace HackathonFoolsJourney
             IsMouseVisible = true;
 
             
+
         }
 
         protected override void Initialize()
@@ -38,6 +39,11 @@ namespace HackathonFoolsJourney
 
             assets = new(this);
             renderer = new(this, _spriteBatch, assets);
+
+            //My stuff
+            Deck mainDeck = new Deck(assets);
+            PlayingField field = new PlayingField(mainDeck);
+            Player fool = new Player();
         }
 
         private void OnWindowResized(object sender, EventArgs e)

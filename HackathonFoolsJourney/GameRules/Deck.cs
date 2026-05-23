@@ -56,8 +56,10 @@ public class Card
 }
 
 
-public class Deck(Assets ass)
+public class Deck
 {   
+    private Assets ass;
+
     //Card Info
     string[] suits = {"Arcana", "Swords", "Wands", "Cups"};
     string[] namedCards = {"Ace", "Jack", "Queen", "King"};
@@ -69,6 +71,7 @@ public class Deck(Assets ass)
 
     public Deck(Assets ass)
     {
+        this.ass = ass;
         fillDrawPile();
     }
 
@@ -90,6 +93,13 @@ public class Deck(Assets ass)
             //Fill Card info
             temp_card.name = majorArcana[choice];
             temp_card.value = choice + 1;
+
+            //Debug Stuff
+            if (ass == null)
+            {
+                Console.WriteLine("It doesn't work");
+            }
+
             temp_card.tex = ass.Cards[choice + 1];
         }
 
