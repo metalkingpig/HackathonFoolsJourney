@@ -9,7 +9,7 @@ namespace HackathonFoolsJourney
     public class TarotCommentator
     {
         private readonly HttpClient _http = new HttpClient();
-        string apiKey = null;     // ← This is the secret
+        string _apiKey = null;     // ← This is the secret
         //replace with real key when ready 
 
         private readonly string[] _fallbacks = {
@@ -33,6 +33,9 @@ namespace HackathonFoolsJourney
 
         private async Task<string> CallOpenAIAsync(bool isWin, int score, string worstMove)
         {
+            if (_apiKey == null)
+                throw new InvalidOperationException("API key is not set.");
+
             string userPrompt = isWin
                 ? $"The player just WON. Score: {score}. Roast them so they don't get confident."
                 : $"The player just LOST. Score: {score}. Worst move: {worstMove}. Destroy them.";
