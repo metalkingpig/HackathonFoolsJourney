@@ -13,6 +13,7 @@ namespace HackathonFoolsJourney
         private Assets assets;
         private Renderer renderer;
         private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
+        private Textbox textbox = null;
 
         public Main()
         {
@@ -37,6 +38,12 @@ namespace HackathonFoolsJourney
 
             assets = new(this);
             renderer = new(this, _spriteBatch, assets);
+
+            int textboxWidth = 500;
+            int textboxHeight = 200;
+            var textboxArea = new Rectangle((Renderer.VirtualWidth - textboxWidth) / 2, Renderer.VirtualHeight - textboxHeight, textboxWidth, textboxHeight);
+            textbox = new(assets.Font, "Hello World! I am a textbox that contains text wrapping which is pretty cool...", textboxArea);
+            //textbox = new(assets.Font, "Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello");
         }
 
         private void OnWindowResized(object sender, EventArgs e)
@@ -99,7 +106,14 @@ namespace HackathonFoolsJourney
             renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
 
             //Text example
+            renderer.DrawTextScaled(assets.Font, "Scale: " + renderer.Scale, 0, 700, 2);
             //renderer.DrawTextScaled(assets.Font, "Score: 100", 0, 0, 4);
+
+            // UI
+            if (textbox != null)
+            {
+                textbox.Draw(renderer);
+            }
 
             // Finish rendering
             _spriteBatch.End();
