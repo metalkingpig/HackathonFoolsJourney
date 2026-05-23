@@ -16,32 +16,6 @@ public class Card
 
     public Texture2D tex;
 
-    public void onCardSelect(char input)
-    {
-        if (suit == "Arcana")
-        {
-            Console.WriteLine("Q) Use Strength");
-            Console.WriteLine("W) Use Wisdom");
-            Console.WriteLine("E) Use Health");
-            Console.WriteLine("R) Quit");
-
-            switch (input)
-            {
-                case 'Q':
-                    //Use Strength
-                    break;
-
-            }
-        }
-        else
-        {
-            Console.WriteLine("Q) Use");
-            Console.WriteLine("W) Put in Storage");
-            Console.WriteLine("E) Discard");
-            Console.WriteLine("R) Quit");
-        }
-    }
-
     public void cardDelete()
     {
         name = "   ";
@@ -145,7 +119,7 @@ public class Deck
     {
         Card temp_card;
         
-        while (drawPile.Count < 78) //Add 77 cards 
+        while (drawPile.Count < 77) //Add 77 cards 
         {
             temp_card = createCard();
 
@@ -165,7 +139,15 @@ public class Deck
     public Card drawCard()
     {
         Card drawnCard = new Card();
+
+        if (drawPile.Count == 0)
+        {
+            drawnCard.cardDelete();
+        }
+        else{
         drawnCard = drawPile.Pop(); //Draw Card
+        }
+        
         return drawnCard;
     }
 

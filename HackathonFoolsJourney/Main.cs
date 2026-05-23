@@ -14,14 +14,16 @@ namespace HackathonFoolsJourney
         private Renderer renderer;
         private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
 
+        //My stuff
+        private Deck mainDeck;
+        private PlayingField field;
+        private Player fool;
+
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-            
-
         }
 
         protected override void Initialize()
@@ -29,6 +31,8 @@ namespace HackathonFoolsJourney
             Window.Title = "Fool's Journey";
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += OnWindowResized;
+
+            
 
             base.Initialize();
         }
@@ -40,10 +44,9 @@ namespace HackathonFoolsJourney
             assets = new(this);
             renderer = new(this, _spriteBatch, assets);
 
-            //My stuff
-            Deck mainDeck = new Deck(assets);
-            PlayingField field = new PlayingField(mainDeck);
-            Player fool = new Player();
+            mainDeck = new Deck(assets);
+            field = new PlayingField(mainDeck);
+            fool = new Player();
         }
 
         private void OnWindowResized(object sender, EventArgs e)
@@ -55,15 +58,95 @@ namespace HackathonFoolsJourney
 
         protected override void Update(GameTime gameTime)
         {
-            
+            bool inMenu = false;
+            Card selectedCard = new Card();
+
+            field.displayCards();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                Console.WriteLine();
-                
+                if (!inMenu)
+                {
+                    selectedCard = field.field[0];  //Select first field card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('Q', selectedCard, field, fool, mainDeck);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[1];  //Select second card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('W', selectedCard, field, fool, mainDeck);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[2];  //Select third card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('E', selectedCard, field, fool, mainDeck);
+                }   
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[3];  //Select fourth card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('R', selectedCard, field, fool, mainDeck);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[4];  //Select 1st bag card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('D', selectedCard, field, fool, mainDeck);
+                }   
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[5];  //Select second bag card
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('D', selectedCard, field, fool, mainDeck);
+                }   
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                if (!inMenu)
+                {
+                    selectedCard = field.field[6];  //Select third bagcard
+                }
+                else    //In menu
+                {
+                    CardFuncs.onCardSelect('Q', selectedCard, field, fool, mainDeck);
+                }
             }
             // TODO: Add your update logic here
             // Get the current state of mouse input.
@@ -88,8 +171,6 @@ namespace HackathonFoolsJourney
                 renderer.DrawRect(0, renderer.Height - barHeight, renderer.Width, barHeight, barColor);
             }
         }
-
-        float rotation = 0;
 
         protected override void Draw(GameTime gameTime)
         {

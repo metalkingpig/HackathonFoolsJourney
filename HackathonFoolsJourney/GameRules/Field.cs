@@ -93,7 +93,7 @@ public class PlayingField
         }
     }
 
-public void refillField(Deck deck)
+    public void refillField(Deck deck)
     {
         if (countEmptyField() >= 3)
         {
@@ -107,5 +107,24 @@ public void refillField(Deck deck)
             
         }
         
+    }
+
+    public void displayCards()
+    {
+        Console.WriteLine("Field: ");
+
+        for (int i = 0; i < 4; i++)
+        {
+            Console.WriteLine(field[i].name);
+        }
+        
+        Console.WriteLine();
+        Console.WriteLine("Bag: ");
+
+        for (int i = 0; i < 4; i++)
+        {
+            Console.WriteLine(field[i].name);
+        }
+
     }
 }
