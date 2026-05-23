@@ -26,6 +26,7 @@ namespace HackathonFoolsJourney
         private bool selectingAction;
         private int selectedCard;
         private int selectedAction; // 1 == Health, 2 == Strength, 3 == Wisdom
+        private int endScreen;
 
         public GameState(Main game, Assets assets, Renderer renderer)
         {
@@ -39,10 +40,13 @@ namespace HackathonFoolsJourney
             cardEffects = [];
             selectingAction = false;
             selectedCard = -1;
+            endScreen = 0;
         }
 
         public void Update()
         {
+            if (endScreen != 0) return;
+
             var kbState = Keyboard.GetState();
 
             if (selectingAction)
@@ -180,6 +184,9 @@ namespace HackathonFoolsJourney
             {
                 cardJustUsed = false;
             }
+
+            if (field.Field.Count == 0 && field.Storage.Count == 0)
+                endScreen = 2;
         }
 
         public void Draw(Renderer renderer)
@@ -188,6 +195,19 @@ namespace HackathonFoolsJourney
 
             // Draw BG
             renderer.DrawCentered(assets.BGCastle, Renderer.VirtualWidth / 2, Renderer.VirtualHeight / 2, new Vector2(8), Color.Violet);
+
+            if (endScreen != 0)
+            {
+                if (endScreen == 1)
+                {
+                    renderer.DrawTextCentered(assets.Font, "You Died", 400, 400, 4);
+                }
+                else if (endScreen == 2)
+                {
+                    renderer.DrawTextCentered(assets.Font, "You Win", 400, 400, 4);
+                }
+                return;
+            }
 
             // Player Stats
             renderer.DrawTextScaled(assets.Font, $"Health:{player.Health}", 10, 10, 2);
@@ -362,7 +382,9 @@ namespace HackathonFoolsJourney
                         player.Health -= card.value;
                         if (player.Health <= 0)
                         {
-                            throw new NotImplementedException("dead");
+                            //throw new NotImplementedException("dead");
+                            endScreen = 1;
+                            return;
                         }
                         card.value = 0;
                     }
