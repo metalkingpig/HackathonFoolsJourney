@@ -15,19 +15,32 @@ namespace HackathonFoolsJourney
         private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
         private Textbox textbox = null;
 
+        // MAIN GAME STATE
+        private JourneyState journey;
+
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
+
             IsMouseVisible = true;
-            
+
         }
 
         protected override void Initialize()
         {
+
+            // CREATE JOURNEY
+            journey = new JourneyState();
+
+            // START GAME
+            journey.StartGame();
+
             Window.Title = "Fool's Journey";
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += OnWindowResized;
+
 
             base.Initialize();
         }
@@ -55,13 +68,56 @@ namespace HackathonFoolsJourney
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            KeyboardState keyboard = Keyboard.GetState();
 
-            // TODO: Add your update logic here
+            // EXIT GAME
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                keyboard.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
+
+            // TEST: PRESS SPACE TO DEAL NEXT ADVENTURE
+            if (keyboard.IsKeyDown(Keys.Space))
+            {
+                journey.DealNextAdventure();
+            }
+
+            // TEST: PRESS H TO TAKE DAMAGE
+            if (keyboard.IsKeyDown(Keys.H))
+            {
+                journey.Fool.LoseVitality(1);
+            }
+
+            // TEST: PRESS J TO HEAL
+            if (keyboard.IsKeyDown(Keys.J))
+            {
+                journey.Fool.GainVitality(1);
+            }
+
+            // ====================== PDF GAMEPLAY CONTROLS ======================
+            // 1-4 = Store card in Satchel
+            if (keyboard.IsKeyDown(Keys.D1)) journey.StoreCardInSatchel(0);
+            if (keyboard.IsKeyDown(Keys.D2)) journey.StoreCardInSatchel(1);
+            if (keyboard.IsKeyDown(Keys.D3)) journey.StoreCardInSatchel(2);
+            if (keyboard.IsKeyDown(Keys.D4)) journey.StoreCardInSatchel(3);
+
+            // E = Equip Wisdom (Coins)
+            if (keyboard.IsKeyDown(Keys.E)) journey.EquipWisdom(0);
+            // Q = Equip Strength (Batons)
+            if (keyboard.IsKeyDown(Keys.Q)) journey.EquipStrength(0);
+            // W = Equip Volition (Swords)
+            if (keyboard.IsKeyDown(Keys.W)) journey.EquipVolition(0);
+
+            // R = Resolve first Challenge
+            if (keyboard.IsKeyDown(Keys.R)) journey.ResolveChallenge(0);
+
+            // A = Take Chance with Ace
+            if (keyboard.IsKeyDown(Keys.A)) journey.TakeChance(0);
 
             base.Update(gameTime);
         }
+
 
         private void DrawEdgeBars()
         {
@@ -95,6 +151,9 @@ namespace HackathonFoolsJourney
 
             // Draw bars on screen edge when resizing window
             DrawEdgeBars();
+
+            renderer.DrawScaled(assets.CardDevil, 400, 400, 2);
+
 
             // Test rendering sprites that are scaled with window
             renderer.DrawScaled(assets.CardFool, 0, 0, 2);
