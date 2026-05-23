@@ -70,6 +70,11 @@ namespace HackathonFoolsJourney
             DrawScaled(texture, x, y, scale, new Vector2(texture.Width / 2, texture.Height / 2), color);
         }
 
+        public void DrawCentered(Texture2D texture, float x, float y, float scale)
+        {
+            DrawCentered(texture, x, y, new Vector2(scale), Color.White);
+        }
+
         public void DrawAnimatedCard(Texture2D frontsideTexture, float x, float y, float rotation, Vector2 scale)
         {
             float realrot = MathF.Sin(rotation);
