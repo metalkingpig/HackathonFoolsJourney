@@ -7,7 +7,60 @@ namespace HackathonFoolsJourney
     {
         public readonly Texture2D WhitePixel;
 
+        public readonly SpriteFont Font;
+
+        public readonly Texture2D BGCastle;
+
+        // Misc
+        public readonly Texture2D CardOutline;
         public readonly Texture2D CardBackside;
+
+        // Jack
+        public readonly Texture2D CardJack1;
+        public readonly Texture2D CardJack2;
+        public readonly Texture2D CardJack3;
+        public readonly Texture2D CardJack4;
+        public readonly Texture2D CardJack5;
+        public readonly Texture2D CardJack6;
+        public readonly Texture2D CardJack7;
+        public readonly Texture2D CardJack8;
+        public readonly Texture2D CardJack9;
+        public readonly Texture2D CardJack10;
+        public readonly Texture2D CardJackJ;
+        public readonly Texture2D CardJackQ;
+        public readonly Texture2D CardJackK;
+
+        // Cup
+        public readonly Texture2D CardCup1;
+        public readonly Texture2D CardCup2;
+        public readonly Texture2D CardCup3;
+        public readonly Texture2D CardCup4;
+        public readonly Texture2D CardCup5;
+        public readonly Texture2D CardCup6;
+        public readonly Texture2D CardCup7;
+        public readonly Texture2D CardCup8;
+        public readonly Texture2D CardCup9;
+        public readonly Texture2D CardCup10;
+        public readonly Texture2D CardCupJ;
+        public readonly Texture2D CardCupQ;
+        public readonly Texture2D CardCupK;
+
+        // Cup
+        public readonly Texture2D CardSword1;
+        public readonly Texture2D CardSword2;
+        public readonly Texture2D CardSword3;
+        public readonly Texture2D CardSword4;
+        public readonly Texture2D CardSword5;
+        public readonly Texture2D CardSword6;
+        public readonly Texture2D CardSword7;
+        public readonly Texture2D CardSword8;
+        public readonly Texture2D CardSword9;
+        public readonly Texture2D CardSword10;
+        public readonly Texture2D CardSwordJ;
+        public readonly Texture2D CardSwordQ;
+        public readonly Texture2D CardSwordK;
+
+        // Major
         public readonly Texture2D CardJudgement;
         public readonly Texture2D CardWorld;
         public readonly Texture2D CardChariot;
@@ -32,6 +85,9 @@ namespace HackathonFoolsJourney
         public readonly Texture2D CardTower;
 
         public readonly Texture2D[] Cards;
+        public readonly Texture2D[] Jacks;
+        public readonly Texture2D[] Cups;
+        public readonly Texture2D[] Swords;
 
         public readonly int CardWidth;
         public readonly int CardHeight;
@@ -39,6 +95,11 @@ namespace HackathonFoolsJourney
         public Assets(Game game)
         {
             WhitePixel = game.Content.Load<Texture2D>("WhitePixel");
+
+            Font = game.Content.Load<SpriteFont>("Fonts/Tiny5");
+
+            // Backgrounds
+            BGCastle = game.Content.Load<Texture2D>("Backgrounds/Castle");
 
             // Cards
             CardBackside = game.Content.Load<Texture2D>("Cards/Back");
@@ -65,6 +126,51 @@ namespace HackathonFoolsJourney
             CardTemperance = game.Content.Load<Texture2D>("Cards/Temperance");
             CardTower = game.Content.Load<Texture2D>("Cards/Tower");
 
+            // Jack
+            CardJack1 = game.Content.Load<Texture2D>("Cards/Jack1");
+            CardJack2 = game.Content.Load<Texture2D>("Cards/Jack2");
+            CardJack3 = game.Content.Load<Texture2D>("Cards/Jack3");
+            CardJack4 = game.Content.Load<Texture2D>("Cards/Jack4");
+            CardJack5 = game.Content.Load<Texture2D>("Cards/Jack5");
+            CardJack6 = game.Content.Load<Texture2D>("Cards/Jack6");
+            CardJack7 = game.Content.Load<Texture2D>("Cards/Jack7");
+            CardJack8 = game.Content.Load<Texture2D>("Cards/Jack8");
+            CardJack9 = game.Content.Load<Texture2D>("Cards/Jack9");
+            CardJack10 = game.Content.Load<Texture2D>("Cards/Jack10");
+            CardJackK = game.Content.Load<Texture2D>("Cards/JackK");
+            CardJackQ = game.Content.Load<Texture2D>("Cards/JackK");
+            CardJackJ = game.Content.Load<Texture2D>("Cards/JackJ");
+
+            // Cup
+            CardCup1 = game.Content.Load<Texture2D>("Cards/Cup1");
+            CardCup2 = game.Content.Load<Texture2D>("Cards/Cup2");
+            CardCup3 = game.Content.Load<Texture2D>("Cards/Cup3");
+            CardCup4 = game.Content.Load<Texture2D>("Cards/Cup4");
+            CardCup5 = game.Content.Load<Texture2D>("Cards/Cup5");
+            CardCup6 = game.Content.Load<Texture2D>("Cards/Cup6");
+            CardCup7 = game.Content.Load<Texture2D>("Cards/Cup7");
+            CardCup8 = game.Content.Load<Texture2D>("Cards/Cup8");
+            CardCup9 = game.Content.Load<Texture2D>("Cards/Cup9");
+            CardCup10 = game.Content.Load<Texture2D>("Cards/Cup10");
+            CardCupK = game.Content.Load<Texture2D>("Cards/CupK");
+            CardCupQ = game.Content.Load<Texture2D>("Cards/CupK");
+            CardCupJ = game.Content.Load<Texture2D>("Cards/CupJ");
+
+            // Sword
+            CardSword1 = game.Content.Load<Texture2D>("Cards/Sword1");
+            CardSword2 = game.Content.Load<Texture2D>("Cards/Sword2");
+            CardSword3 = game.Content.Load<Texture2D>("Cards/Sword3");
+            CardSword4 = game.Content.Load<Texture2D>("Cards/Sword4");
+            CardSword5 = game.Content.Load<Texture2D>("Cards/Sword5");
+            CardSword6 = game.Content.Load<Texture2D>("Cards/Sword6");
+            CardSword7 = game.Content.Load<Texture2D>("Cards/Sword7");
+            CardSword8 = game.Content.Load<Texture2D>("Cards/Sword8");
+            CardSword9 = game.Content.Load<Texture2D>("Cards/Sword9");
+            CardSword10 = game.Content.Load<Texture2D>("Cards/Sword10");
+            CardSwordK = game.Content.Load<Texture2D>("Cards/SwordK");
+            CardSwordQ = game.Content.Load<Texture2D>("Cards/SwordK");
+            CardSwordJ = game.Content.Load<Texture2D>("Cards/SwordJ");
+
             CardWidth = CardBackside.Width;
             CardHeight = CardBackside.Height;
 
@@ -90,6 +196,54 @@ namespace HackathonFoolsJourney
                 CardSun,            // 18
                 CardJudgement,      // 19
                 CardWorld,          // 20
+            ];
+
+            Jacks = [
+                CardJack1,         // 0
+                CardJack2,         // 1
+                CardJack3,         // 2
+                CardJack4,         // 3
+                CardJack5,         // 4
+                CardJack6,         // 5
+                CardJack7,         // 6
+                CardJack8,         // 7
+                CardJack9,         // 8
+                CardJack10,        // 9
+                CardJackJ,         // 10
+                CardJackK,         // 11
+                CardJackQ,         // 12
+            ];
+
+            Cups = [
+                CardCup1,           // 0
+                CardCup2,           // 1
+                CardCup3,           // 2
+                CardCup4,           // 3
+                CardCup5,           // 4
+                CardCup6,           // 5
+                CardCup7,           // 6
+                CardCup8,           // 7
+                CardCup9,           // 8
+                CardCup10,          // 9
+                CardCupJ,           // 10
+                CardCupK,           // 11
+                CardCupQ,           // 12
+            ];
+
+            Swords = [
+                CardSword1,         // 0
+                CardSword2,         // 1
+                CardSword3,         // 2
+                CardSword4,         // 3
+                CardSword5,         // 4
+                CardSword6,         // 5
+                CardSword7,         // 6
+                CardSword8,         // 7
+                CardSword9,         // 8
+                CardSword10,        // 9
+                CardSwordJ,         // 10
+                CardSwordK,         // 11
+                CardSwordQ,         // 12
             ];
         }
     }

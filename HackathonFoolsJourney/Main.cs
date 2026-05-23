@@ -13,6 +13,7 @@ namespace HackathonFoolsJourney
         private Assets assets;
         private Renderer renderer;
         private readonly Color ClearColor = new Color(0.05f, 0, 0.1f);
+        private Textbox textbox = null;
 
         //My stuff
         private Deck mainDeck;
@@ -47,6 +48,13 @@ namespace HackathonFoolsJourney
             mainDeck = new Deck(assets);
             field = new PlayingField(mainDeck);
             fool = new Player();
+
+            int textboxWidth = 500;
+            int textboxHeight = 200;
+            var textboxArea = new Rectangle((Renderer.VirtualWidth - textboxWidth) / 2, Renderer.VirtualHeight - textboxHeight, textboxWidth, textboxHeight);
+            //textbox = new(assets.Font, "Hello World! I am a textbox that contains text wrapping which is pretty cool...", textboxArea);
+            //textbox = new(assets.Font, "Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello");
+            textbox = new(assets.Font, "Placehold\nPlacehold\nPlacehold\nPlacehold\nPlacehole", textboxArea);
         }
 
         private void OnWindowResized(object sender, EventArgs e)
@@ -180,18 +188,30 @@ namespace HackathonFoolsJourney
             // SamplerState.PointClamp keeps sprites from appearing blurry
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+            // Draw BG
+            renderer.DrawCentered(assets.BGCastle, Renderer.VirtualWidth / 2, Renderer.VirtualHeight / 2, new Vector2(8), Color.Violet);
+
             // Draw bars on screen edge when resizing window
             DrawEdgeBars();
 
             // Test rendering sprites that are scaled with window
-
             //renderer.DrawScaled(assets.CardFool, 0, 0, 2);
             //renderer.DrawScaled(assets.CardEmpress, 800 - assets.CardEmpress.Width * 2f, 0, 2);
 
             // Animated card test
             //rotation += 0.05f;
-            //renderer.DrawAnimatedCard(assets.CardFool, 200, 200, rotation, 2f);
+            //renderer.DrawAnimatedCard(assets.CardSword1, 200, 200, rotation, 2f);
             //renderer.DrawAnimatedCard(assets.CardChariot, 400, Renderer.VirtualHeight - assets.CardHeight, rotation + 0.5f, 2f);
+
+            //Text example
+            //renderer.DrawTextScaled(assets.Font, "Scale: " + renderer.Scale, 0, 700, 2);
+            //renderer.DrawTextScaled(assets.Font, "Score: 100", 0, 0, 4);
+
+            // UI
+            if (textbox != null)
+            {
+                textbox.Draw(renderer);
+            }
 
             // Finish rendering
             _spriteBatch.End();
